@@ -844,7 +844,6 @@ a:hover, a:focus {
   margin-bottom: 19px;
   border: 0;
 }
-
 .navbar-toggle .icon-bar {
   background-color: #FFFFFF;
 }
@@ -1107,4 +1106,17 @@ a:hover, a:focus {
 .navigation-clean-button .navbar-text .action-button:hover {
   background: #66d7d7;
 }
+
+       #map {
+        height: 50%;
+        width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 5px;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+      }
 
