@@ -46,7 +46,7 @@ function initMap() {
   //     var longitude = results[0].geometry.location.lng();
   //     alert(latitude);
   //   } 
-  }); 
+  // }); 
 
   infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
