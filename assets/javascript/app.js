@@ -6,6 +6,16 @@ var database;
 
 
 
+//Main
+//====================
+
+$(document).ready(function () {
+  initDb();
+  initMap();
+  latLong();
+  console.log(database.ref());
+
+});
 
 
 
@@ -99,16 +109,6 @@ function mapsDb(){
 }
 
 
-//Main
-//====================
-
-$(document).ready(function () {
-  initDb();
-  initMap();
-  latLong();
-  console.log(database.ref());
-
-});
 
 
 
