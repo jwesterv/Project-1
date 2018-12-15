@@ -44,7 +44,7 @@ function initMap() {
   var providerLoc = { lat: providerLat, lng: providerLong };
   map = new google.maps.Map(document.getElementById('map'), {
     center: providerLoc,
-    zoom: 8
+    zoom: 16
   });
 
 
