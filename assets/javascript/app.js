@@ -46,7 +46,7 @@ function initMap() {
     center: providerLoc,
     zoom: 8
   });
- 
+
 
   infoWindow = new google.maps.InfoWindow;
   // Try HTML5 geolocation.
@@ -80,7 +80,42 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 }
 
+//Creating a marker from user input
+//May be easier to split var and string?
+//var houseNumber = $("#houseNumber-input");
+//var street = $("street-input");
+//var city = $("city-input");
+//var postalCode = $("postalCode-input");
+function geocodeAddress(geocoder, resultsMap) {
+  var address = $('#address-input').val.trim;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
 
+//Collect information from Google Sign-In
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+//Function to Sign - Out of Google Account
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
 
 
 
@@ -101,11 +136,11 @@ function latLong() {
 };
 
 
-function mapsDb(){
+function mapsDb() {
 
 
 
-  
+
 }
 
 
