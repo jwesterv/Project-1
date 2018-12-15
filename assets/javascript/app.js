@@ -44,7 +44,7 @@ function initMap() {
   var providerLoc = { lat: providerLat, lng: providerLong };
   map = new google.maps.Map(document.getElementById('map'), {
     center: providerLoc,
-    zoom: 8
+    zoom: 16
   });
 
 
@@ -81,14 +81,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 //Creating a marker from user input
-//May be easier to split var and string?
-//var houseNumber = $("#houseNumber-input");
-//var street = $("street-input");
-//var city = $("city-input");
-//var postalCode = $("postalCode-input");
+
 function geocodeAddress(geocoder, resultsMap) {
   var address = $('#address-input').val.trim;
-  geocoder.geocode({'address': address}, function(results, status) {
+  geocoder.geocode({'address-input': address}, function(results, status) {
     if (status === 'OK') {
       resultsMap.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
@@ -100,24 +96,6 @@ function geocodeAddress(geocoder, resultsMap) {
     }
   });
 }
-
-//Collect information from Google Sign-In
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
-//Function to Sign - Out of Google Account
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
-}
-
-
 
 function latLong() {
 
