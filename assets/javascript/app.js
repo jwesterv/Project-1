@@ -81,14 +81,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 //Creating a marker from user input
-//May be easier to split var and string?
-//var houseNumber = $("#houseNumber-input");
-//var street = $("street-input");
-//var city = $("city-input");
-//var postalCode = $("postalCode-input");
+
 function geocodeAddress(geocoder, resultsMap) {
   var address = $('#address-input').val.trim;
-  geocoder.geocode({'address': address}, function(results, status) {
+  geocoder.geocode({'address-input': address}, function(results, status) {
     if (status === 'OK') {
       resultsMap.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
@@ -100,6 +96,9 @@ function geocodeAddress(geocoder, resultsMap) {
     }
   });
 }
+
+var user = {};
+$
 
 //Collect information from Google Sign-In
 function onSignIn(googleUser) {
