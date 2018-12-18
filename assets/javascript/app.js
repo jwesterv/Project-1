@@ -3,13 +3,15 @@
 var database;
 var providerLat;
 var providerLong;
-var user = [{
+
+var user = {
   userId: 0,
   isProvider: false,
   first: "", // google first name
   middle: "", // google middle name
   last: "", // google last name
   email: "", // google email
+  phone: 800-123-4567,
   region: "", // google region
   pic: "assets/images/pic.png", // google profile picture
   width: 100, // picture width
@@ -17,7 +19,25 @@ var user = [{
   make: "",
   hasCable: "",
 
-}];
+};
+
+var station = {
+  isOpen: false,
+  waitTime: 0,
+  inUse: false,
+  marker: "newObj",
+  services: false,
+  numSockets: 0
+  
+};
+
+var socket = {
+  type: ""
+};
+
+var charger = {
+  numSockets: 1
+};
 
 
 
@@ -27,8 +47,8 @@ var user = [{
 
 $(document).ready(function () {
   initDb();
+  // gl();
   providerMap(40.785091, -73.968285);
-  geocodeAddress();
 
   console.log(database.ref());
 
@@ -75,8 +95,10 @@ $(document).ready(function () {
   }
 
   function geocodeAddress(geocoder, resultsMap) {
+    console.log(geocoder);
     var address = document.getElementById('address').value;
     geocoder.geocode({ 'address': address }, function gg(results, status) {
+      
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
