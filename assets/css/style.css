@@ -232,6 +232,11 @@ a:hover, a:focus {
   transition: all 300ms linear;
 }
 
+.dashBoard_navBar {
+  color: white;
+  
+}
+
 .wrapper {
   position: relative;
   top: 0;
