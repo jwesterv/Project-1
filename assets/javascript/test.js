@@ -12,4 +12,6 @@ function initDb() {
   database = firebase.database();
 }
 
-var provider = new firebase.auth.GoogleAuthProvider();
+gapi.load('auth2', function(){
+  gapi.auth2.init();
+});
