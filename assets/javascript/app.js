@@ -16,7 +16,8 @@ var user = {
   pic: "assets/images/pic.png", // google profile picture
   width: 100, // picture width
   height: 100, // picture height
-  make: "",
+  make: "Tesla",
+  model: "",
   hasCable: "",
 
 };
@@ -36,6 +37,7 @@ var socket = {
 };
 
 var charger = {
+  type: "",
   numSockets: 1
 };
 
@@ -181,7 +183,40 @@ $(document).ready(function () {
   //       lat: map.center.lat(),
   //       lng: map.center.lng()
 
-  
+  //grab from form and send to database
+  function sendUserInfo(){
+    //grab inputs from account info form
+      var first = $("#firstName-input").val().trim();
+      var last = $("#lastName-input").val().trim();
+      var model = $("#model-input").val().trim();
+      var email = $("#email-input").val().trim();
+      var phone = $("#phone-input").val().trim();
+      //send new user values to firebase
+      database.ref(this.user).set({
+        first: first,
+        last: last,
+        email: email,
+        phone: phone,
+        model: model
+      })
+
+      //if user is a provider as well, then we need to grab and send more values to firebase
+      if (isProvider) {
+        var address = $("#address-input").val().trim();
+        var socketType = $("#type-input").val().trim();//type of socket?
+        var numSockets = $("#socket-input").val().trim();//how many sockets in charger  
+        
+        //send station info to firebase
+        database.ref(station).set({
+          numSockets: numSockets,
+        })
+
+        //send charger info to firebase
+        database.ref(socket).set({
+          type: socketType,
+        })
+      }
+  }
 
 
 
