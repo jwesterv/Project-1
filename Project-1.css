@@ -16,22 +16,22 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }  
-.jumbotron {
-    background-color: rgba(5,4,2,0.1);
-    width:850px;
-    height: 100%;
-    margin-left:auto;
-    margin-right:auto;
-    padding: 15px;
+
+.screen {
+    background-color: rgba(0, 0, 0, 0.6) 
 }
 
+.mainTitle {
+    color: white;
+    text-align: center;
+    padding-top: 10%;
+    font-size: 60px; 
+}
 
-
-
-
-
-.btn {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+.logInModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin-top: 20%;
 }
