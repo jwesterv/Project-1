@@ -5,12 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="google-signin-client_id" content="http://606681487672-8o9j55oun2m733meocp2ftrb7itkdacj.apps.googleusercontent.com.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="606681487672-8o9j55oun2m733meocp2ftrb7itkdacj.apps.googleusercontent.com">
   <!-- Eric Meyer's Reset for Cross Browser Consistency -->
   <link rel="stylesheet" href="./assets/css/reset.css">
-
-  <!--Google Platform Library-->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <!-- Firebase App is always required and must be first -->
   <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
@@ -47,7 +44,24 @@
 
 <Body>
 
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div>
+<input id="txtEmail" type="email" placeholder="Email">
+
+<input id="txtPassword" type="password" placeholder="Password">
+
+<button id="btnLogIn" class="btn btn-secondary">
+  Log in
+</button>
+
+<button id="btnSignUp" class="btn btn-secondary">
+  Sign Up
+</button>
+
+<button id="btnLogout" class="btn btn-action hide">
+  Log out
+</button>
+
+  </div>
 
 
   <!-- All the good stuff! -->
