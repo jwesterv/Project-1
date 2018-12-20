@@ -7,37 +7,39 @@ var providerLong;
 var user = {
   userId: 0,
   isProvider: false,
-  first: "", // google first name
+  first: "John", // google first name
   middle: "", // google middle name
-  last: "", // google last name
-  email: "", // google email
-  phone: 800 - 123 - 4567,
-  region: "", // google region
+  last: "Doe", // google last name
+  email: "jdoe@me.com", // google email
+  phone: "800-555-1212",
+  region: "New York", // google region
   pic: "assets/images/pic.png", // google profile picture
   width: 100, // picture width
   height: 100, // picture height
-  make: "",
-  hasCable: "",
+  make: "Tesla", //make of the user's car
+  hasCable: "no", // if user has a cable
+  provider: { //main provider object 
+    station: { //main station object
+      marker: { //google marker for the station
+        region: "New York", // region of the station
+        lat: "40.785091", //latitude of the station
+        lng: "-73.968285" // longitude of the station
+      },
+      hasCable: "no", //does station have a cable
+      isOpen: false, //is the station open for business
+      waitTime: 0, //what is the waittime for the station
+      services: false, //other available services at the station
+      totalSockets: 0, //total available sockets at the station
+      charger: { //charger on the station
+        numSockets: 1, //number of sockets on the charger
+        inUse: false //is the charger in use
+      }
+    }
+  }
 
 };
+console.log(user.provider.station.charger.numSockets);
 
-var station = {
-  isOpen: false,
-  waitTime: 0,
-  inUse: false,
-  marker: "newObj",
-  services: false,
-  numSockets: 0
-
-};
-
-var socket = {
-  type: ""
-};
-
-var charger = {
-  numSockets: 1
-};
 
 
 
@@ -50,10 +52,21 @@ $(document).ready(function () {
   // gl();
   providerMap(40.785091, -73.968285);
 
+  $("#pushUser").on("click", function(){
+    $("#user").empty();
+    pushUser();
+  }
+    );
+
+    $("#pullUser").on("click", function(){
+      $("#user").empty();
+      pullUser();
+    }
+      );
+ 
+  
+
   console.log(database.ref());
-
-
-
 
 
   //Functions
@@ -97,7 +110,11 @@ $(document).ready(function () {
   function geocodeAddress(geocoder, resultsMap) {
     console.log(geocoder);
     var address = document.getElementById('address').value;
+<<<<<<< HEAD
     geocoder.geocode({ 'address': address }, function gg(results, status) {
+=======
+    geocoder.geocode({ 'address': address }, function (results, status) {
+>>>>>>> b135ae0edfd282b6145c91af171028095875e5ec
 
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
@@ -175,14 +192,51 @@ $(document).ready(function () {
     }
   }
 
-  //Set data to Firebase
-  //   database.ref().set(
-  //     {
-  //       lat: map.center.lat(),
-  //       lng: map.center.lng()
+  function pullUser() {
+    database.ref().on("child_added", function (snapshot) {
+      var data = snapshot.val();
+      var newRow = $("<div class='row'>");
+      console.log(data);
+      var colName = "<div class='col'>" + data.user.first + " " + data.user.last + "</div> ";
+      var colemail = "<div class='col'>" + data.user.email + "</div> ";
+      var colphone = "<div class='col'>" + data.user.phone + "</div> ";
+
+<<<<<<< HEAD
+
+=======
+      newRow.append(colName, colemail, colphone);
+      $("#user").append(newRow);
+
+    })
+  }
+  function pushUser() {
+    // Set data to Firebase
+    database.ref().push(
+      {
+        user: user,
+>>>>>>> b135ae0edfd282b6145c91af171028095875e5ec
+
+
+      })
+
+  }
 
 
 
+  function pushMarker() {
+    var myLatLng = {lat: -25.363, lng: 131.044};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatLng
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
+    });
+  }
 
 
 });
