@@ -110,7 +110,11 @@ $(document).ready(function () {
   function geocodeAddress(geocoder, resultsMap) {
     console.log(geocoder);
     var address = document.getElementById('address').value;
+<<<<<<< HEAD
+    geocoder.geocode({ 'address': address }, function gg(results, status) {
+=======
     geocoder.geocode({ 'address': address }, function (results, status) {
+>>>>>>> b135ae0edfd282b6145c91af171028095875e5ec
 
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
@@ -197,6 +201,9 @@ $(document).ready(function () {
       var colemail = "<div class='col'>" + data.user.email + "</div> ";
       var colphone = "<div class='col'>" + data.user.phone + "</div> ";
 
+<<<<<<< HEAD
+
+=======
       newRow.append(colName, colemail, colphone);
       $("#user").append(newRow);
 
@@ -207,6 +214,7 @@ $(document).ready(function () {
     database.ref().push(
       {
         user: user,
+>>>>>>> b135ae0edfd282b6145c91af171028095875e5ec
 
 
       })
