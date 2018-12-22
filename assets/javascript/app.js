@@ -1,4 +1,5 @@
 //Global Vars
+
 //========================
 var database;
 var providerLat;
