@@ -100,14 +100,9 @@ $(document).ready(function () {
   function geocodeAddress(geocoder, resultsMap) {
     console.log(geocoder);
     var address = document.getElementById('address').value;
-<<<<<<< HEAD
-    geocoder.geocode({ 'address': address }, function gg(results, status) {
-      
-=======
    
     geocoder.geocode({ 'address': address }, function (results, status) {
 
->>>>>>> 7383a4a04ef5c044b7ccf647583cd13c1c93e1a0
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
@@ -191,7 +186,10 @@ $(document).ready(function () {
   //       lng: map.center.lng()
   //}
 
-
+  //click handler for switching from userDash to providerDash and vice-versa
+  $(document).on("click", "#switch", function() {
+    switchDash();
+  });
   //switch from user dash to provider dash, and vice-versa
   function switchDash(){
     if (window.location === "userDash url") { //TODO: add url for userDash
@@ -240,11 +238,11 @@ $(document).ready(function () {
   function appendProviderInfo(){
     //grab info from firebase
     database.ref(this.user).on("value", function(snapshot){
-      first = snapshot.val().first;
-      last = snapshot.val().last;
-      address = snapshot.val().address;
-      phone = snapshot.val().phone;
-      pic = snapshot.val().pic;
+      var first = snapshot.val().first;
+      var last = snapshot.val().last;
+      var address = snapshot.val().address;
+      var phone = snapshot.val().phone;
+      var pic = snapshot.val().pic;
       
     });
 
@@ -254,10 +252,17 @@ $(document).ready(function () {
     console.log("Phone number: " + phone);
 
     database.ref(this.charger).on("value", function(snapshot){
-      type = snapshot.val().type;
+      var type = snapshot.val().type;
     });
-    
+    //log charger type
     console.log("Charger type: " + type);
+
+    //append info to provider cards
+    $("#provider-pic").append(pic);
+    $("#provider-name").text(first + " " + last);
+    $("#provider-phone").text(phone);
+    $("#provider-address").text(address);
+    $("#charger-type").append(type);
   }
 
 });
