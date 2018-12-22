@@ -1,4 +1,5 @@
 //Global Vars
+
 //========================
 var database;
 var providerLat;
@@ -99,8 +100,14 @@ $(document).ready(function () {
   function geocodeAddress(geocoder, resultsMap) {
     console.log(geocoder);
     var address = document.getElementById('address').value;
+<<<<<<< HEAD
     geocoder.geocode({ 'address': address }, function gg(results, status) {
       
+=======
+   
+    geocoder.geocode({ 'address': address }, function (results, status) {
+
+>>>>>>> 7383a4a04ef5c044b7ccf647583cd13c1c93e1a0
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
