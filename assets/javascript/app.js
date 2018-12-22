@@ -55,10 +55,11 @@ $(document).ready(function () {
 
   console.log(database.ref());
 
+//update provider cards on load
+  appendProviderInfo();
 
 
-
-
+});
   //Functions
   //==================
 
@@ -272,4 +273,3 @@ $(document).ready(function () {
     $("#charger-type").text(type);
   }
 
-});
