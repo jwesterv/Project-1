@@ -16,7 +16,7 @@ initDb();
 var uiConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-            var user = authResult.user;
+            var firebaseUser = authResult.user;
             var credential = authResult.credential;
             var isNewUser = authResult.additionalUserInfo.isNewUser;
             var providerId = authResult.additionalUserInfo.providerId;
@@ -69,8 +69,8 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 ui.start('#firebaseui-auth-container', uiConfig);
 
 //Following a sign-in user
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
+firebase.auth().onAuthStateChanged(function (firebaseUser) {
+    if (firebaseUser) {
         // User is signed in.
     } else {
         // No user is signed in.
@@ -78,22 +78,22 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 //Current user information
-var user = firebase.auth().currentUser;
+var firebaseUser = firebase.auth().currentUser;
 var name, email, photoUrl, uid, emailVerified;
 
-if (user != null) {
-    name = user.displayName;
-    email = user.email;
-    photoUrl = user.photoURL;
-    emailVerified = user.emailVerified;
-    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+if (firebaseUser != null) {
+    name = firebaseUser.displayName;
+    email = firebaseUser.email;
+    photoUrl = firebaseUser.photoURL;
+    emailVerified = firebaseUser.emailVerified;
+    uid = firebaseUser.uid;  // The user's ID, unique to the Firebase project. Do NOT use
     // this value to authenticate with your backend server, if
     // you have one. Use User.getToken() instead.
 }
 
 //Console log values
-if (user != null) {
-    user.providerData.forEach(function (profile) {
+if (firebaseUser != null) {
+    firebaseUser.providerData.forEach(function (profile) {
         console.log("Sign-in provider: " + profile.providerId);
         console.log("  Provider-specific UID: " + profile.uid);
         console.log("  Name: " + profile.displayName);
