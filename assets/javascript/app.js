@@ -110,6 +110,10 @@ $(document).ready(function () {
   function geocodeAddress(geocoder, resultsMap) {
     console.log(geocoder);
     var address = document.getElementById('address').value;
+<<<<<<< HEAD
+=======
+   
+>>>>>>> ae9f3b981ff7da59d08fbc6b1b2be3765735eb5a
     geocoder.geocode({ 'address': address }, function (results, status) {
 
       if (status === 'OK') {
