@@ -10,6 +10,8 @@
     <title>Dashboard</title>
     <!-- Eric Meyer's Reset for Cross Browser Consistency -->
     <link rel="stylesheet" href="./assets/css/reset.css">
+
+
     <!-- Main Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
@@ -19,6 +21,12 @@
 
     <!-- Main CSS Link -->
     <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- JQuery Links -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
 
     <title>Dashboard - WattsApp</title>
 </head>
@@ -89,9 +97,12 @@
                     <span class="float-right navbar-text actions"><a class="btn btn-light action-button" href="#">Log
                             Out</a></span>
                 </nav>
-
                 <div style="margin-bottom: 25px;padding: 15px;"><label>&nbsp;Search by city&nbsp;</label><input type="search"></div>
-                <div class="container-fluid" style="padding: 20px;"><img src="assets/img/satic%20map.png"></div>
+                <!-- MAP PLACEHOLDER -->
+                <div id="map-container">
+                    <div id="map"></div>
+                </div>
+
 
                 <div class="card">
                     <div class="card-body" style="padding: 10px;">
@@ -274,35 +285,26 @@
         </div>
     </div>
 
-
+    <script src="./assets/javascript/app.js"></script>
+    <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMc3DmC8wRvYXnd8rbkA7Vwa2P_GflEsE" async defer></script>
-    <!-- All the good stuff! -->
-    <script type="text/javascript" src="./assets/javascript/app.js"></script>
-    <!-- End: Dashboard layout -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
-    <!-- Firebase -->
+    <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-functions.js"></script>
 
-    <!-- JQuery Links -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+    <!-- End: Dashboard layout -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <!-- Required Bootstrap JQuery CDN -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-
+    <!-- Login javascript -->
+    <!-- <script src="./assets/javascript/login.js"></script> -->
 </body>
 
 </html>
