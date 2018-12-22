@@ -184,8 +184,15 @@ $(document).ready(function () {
   //       lng: map.center.lng()
   //}
 
+
   //switch from user dash to provider dash, and vice-versa
-  
+  function switchDash(){
+    if (window.location === "userDash url") { //TODO: add url for userDash
+      window.location = "providerDash url"; //TODO: add url for providerDash
+    } else if (window.location === "providerDash url") { //TODO: add url for providerDash
+      window.location = "userDash url"; //TODO: add url for userDash
+    }
+  }
   //grab from form and send to database
   function sendUserInfo(){
     //grab inputs from account info form
@@ -221,5 +228,29 @@ $(document).ready(function () {
       }
 
     }
+
+  //append provider info on dash in cards
+  function appendProviderInfo(){
+    //grab info from firebase
+    database.ref(this.user).on("value", function(snapshot){
+      first = snapshot.val().first;
+      last = snapshot.val().last;
+      address = snapshot.val().address;
+      phone = snapshot.val().phone;
+      pic = snapshot.val().pic;
+      
+    });
+
+    console.log("First name: " + first);
+    console.log("Last name: " + last);
+    console.log("Address: " + address);
+    console.log("Phone number: " + phone);
+
+    database.ref(this.charger).on("value", function(snapshot){
+      type = snapshot.val().type;
+    });
+    
+    console.log("Charger type: " + type);
+  }
 
 });
