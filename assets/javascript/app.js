@@ -20,7 +20,7 @@ var user = {
   make: "Tesla",
   model: "",
   hasCable: "",
-
+  address: ""
 };
 
 var station = {
@@ -217,18 +217,23 @@ $(document).ready(function () {
 
       //if user is a provider as well, then we need to grab and send more values to firebase
       if (isProvider) {
-        var address = $("#address-input").val().trim();
-        var socketType = $("#type-input").val().trim();//type of socket?
+        var providerAddress = $("#address-input").val().trim();
+        var chargerType = $("#type-input").val().trim();//type of charger?
         var numSockets = $("#socket-input").val().trim();//how many sockets in charger  
         
         //send station info to firebase
         database.ref(station).set({
-          numSockets: numSockets,
+          numSockets: numSockets
         });
 
         //send charger info to firebase
-        database.ref(socket).set({
-          type: socketType,
+        database.ref(charger).set({
+          type: chargerType
+        });
+
+        //send provider address to firebase
+        database.ref(this.user).set({
+          address: providerAddress
         });
       }
 
@@ -237,12 +242,14 @@ $(document).ready(function () {
   //append provider info on dash in cards
   function appendProviderInfo(){
     //grab info from firebase
-    database.ref(this.user).on("value", function(snapshot){
-      var first = snapshot.val().first;
-      var last = snapshot.val().last;
-      var address = snapshot.val().address;
-      var phone = snapshot.val().phone;
-      var pic = snapshot.val().pic;
+    database.ref(user).on("value", function(snapshot){
+      if (isProvider) {
+        var first = snapshot.val().first;
+        var last = snapshot.val().last;
+        var address = snapshot.val().address;
+        var phone = snapshot.val().phone;
+        var pic = snapshot.val().pic;
+        };
       
     });
 
@@ -262,7 +269,7 @@ $(document).ready(function () {
     $("#provider-name").text(first + " " + last);
     $("#provider-phone").text(phone);
     $("#provider-address").text(address);
-    $("#charger-type").append(type);
+    $("#charger-type").text(type);
   }
 
 });
