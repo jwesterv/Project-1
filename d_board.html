@@ -115,13 +115,13 @@
                 <div class="card">
                     <div class="card-body" style="padding: 10px;">
                         <div class="row" id="cards">
-                            <div class="col-md-2"><img src="assets/img/2016_bmw_i_wallbox-1214.jpg" class="img-thumbnail"
+                            <div class="col-md-2"><img src="assets/img/2016_bmw_i_wallbox-1214.jpg" id="card-pic" class="img-thumbnail"
                                     style="width: 200px;height: 200px;"></div>
                             <div class="col-md-5">
-                                <h4>Jims Garage</h4>
-                                <h6 class="text-muted mb-2">SUPER CHARGER</h6>
-                                <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac
-                                    facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                <h4 id="card-name">Jims Garage</h4>
+                                <h6 id="card-type" class="text-muted mb-2">SUPER CHARGER</h6>
+                                <h6 id="card-phone" class="text-muted mb-2"></h6>
+                                <h6 id="card-address" class="text-muted mb-2"></h6>
                             </div>
                             <div class="col-md-5">
                                 <h1 class="text-center">1.5 miles away</h1>
@@ -158,27 +158,27 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">First Name:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" value="" placeholder="Jane">
+                                <input class="form-control" id="user-firstName" type="text" value="" placeholder="Jane">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Last Name:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" value="" placeholder="Bishop">
+                                <input class="form-control" id="user-lastName" type="text" value="" placeholder="Bishop">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Phone:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" value="" placeholder="123-456-789">
+                                <input class="form-control" id="user-phone" type="text" value="" placeholder="123-456-789">
                             </div>
                         </div>
-
+                    
                         <!-- EDIT EMAIL -->
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Email:</label>
                             <div class="col-lg-8">
-                                <input class="form-control" type="text" value="" placeholder="janesemail@gmail.com">
+                                <input class="form-control" id="user-email" type="text" value="" placeholder="janesemail@gmail.com">
                             </div>
                         </div>
                         <div class="form-group">
@@ -200,7 +200,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id="update-user" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -231,33 +231,38 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">First Name:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" value="" placeholder="Jane">
+                                    <input class="form-control" id="provider-firstName" type="text" value="" placeholder="Jane">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Last Name:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" value="" placeholder="Bishop">
+                                    <input class="form-control" id="provider_lastName" type="text" value="" placeholder="Bishop">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Address:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" value="" placeholder="666 To Hell Hwy">
+                                    <input class="form-control" id="provider-address" type="text" value="" placeholder="666 To Hell Hwy">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Phone:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" value="" placeholder="123-456-789">
+                                    <input class="form-control" id="provider-phone" type="text" value="" placeholder="123-456-789">
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Type of charger:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" id="provider-type" type="text" value="" placeholder="ie: Supercharger">
+                                </div>
+                            </div>
                             <!-- EDIT EMAIL -->
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Email:</label>
                                 <div class="col-lg-8">
-                                    <input class="form-control" type="text" value="" placeholder="janesemail@gmail.com">
+                                    <input class="form-control" id="provider-email" type="text" value="" placeholder="janesemail@gmail.com">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -280,7 +285,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id="update-provider" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>

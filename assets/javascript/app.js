@@ -31,6 +31,7 @@ var user = {
       services: false, //other available services at the station
       totalSockets: 0, //total available sockets at the station
       charger: { //charger on the station
+        type: "",
         numSockets: 1, //number of sockets on the charger
         inUse: false //is the charger in use
       }
@@ -49,197 +50,275 @@ var user = {
 $(document).ready(function () {
   initDb();
   gl();
-  $("#providerLoc").on("click", function(){
+  appendProviderInfo();
+  $("#providerLoc").on("click", function () {
     providerMap();
   });
 
-  $("#pushUser").on("click", function(){
+  $("#pushUser").on("click", function () {
     $("#user").empty();
     pushUser();
-  }
-    );
+  });
 
-    $("#pullUser").on("click", function(){
-      $("#user").empty();
-      pullUser();
-    }
-      );
- 
-  
+  $("#pullUser").on("click", function () {
+    $("#user").empty();
+    pullUser();
+  });
+
+  $("#update-user").on("click", function () {
+    sendUserInfo();
+  });
+
+  $("#update-provider").on("click", function() {
+    sendProviderInfo();
+  });
 
   console.log(database.ref());
 
+});
+//Functions
+//==================
 
-  //Functions
-  //==================
-
-  function initDb() {
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyC6eAPWuYgz1OEsS8mvrkNfu4XYduyD5aE",
-      authDomain: "project1-8e6c3.firebaseapp.com",
-      databaseURL: "https://project1-8e6c3.firebaseio.com",
-      projectId: "project1-8e6c3",
-      storageBucket: "project1-8e6c3.appspot.com",
-      messagingSenderId: "853012909302"
-    };
-    firebase.initializeApp(config);
-    database = firebase.database();
-  }
-
-
-  function providerMap(providerLat, providerLong) {
-     // 40.785091, -73.968285));
-providerLat = user.provider.station.marker.lat;
-providerLong = user.provider.station.marker.lng;
-
-console.log(providerLat);
-console.log(providerLong);
-    // var providerLoc = { lat: providerLat, lng: providerLong };
-//  { lat: providerLat, lng: providerLong }
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: { lat: providerLat, lng: providerLong },
-  
-    });
-    console.log(providerLat);
-    console.log(providerLong);
-    var geocoder = new google.maps.Geocoder();
-    console.log(geocoder);
+function initDb() {
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC6eAPWuYgz1OEsS8mvrkNfu4XYduyD5aE",
+    authDomain: "project1-8e6c3.firebaseapp.com",
+    databaseURL: "https://project1-8e6c3.firebaseio.com",
+    projectId: "project1-8e6c3",
+    storageBucket: "project1-8e6c3.appspot.com",
+    messagingSenderId: "853012909302"
+  };
+  firebase.initializeApp(config);
+  database = firebase.database();
+}
 
 
+function providerMap(providerLat, providerLong) {
+  // 40.785091, -73.968285));
+  providerLat = user.provider.station.marker.lat;
+  providerLong = user.provider.station.marker.lng;
 
-    document.getElementById('submit').addEventListener('click', function () {
-      geocodeAddress(geocoder, map);
-    });
+  console.log(providerLat);
+  console.log(providerLong);
+  // var providerLoc = { lat: providerLat, lng: providerLong };
+  //  { lat: providerLat, lng: providerLong }
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: { lat: providerLat, lng: providerLong },
+
+  });
+  console.log(providerLat);
+  console.log(providerLong);
+  var geocoder = new google.maps.Geocoder();
+  console.log(geocoder);
 
 
 
-  }
+  document.getElementById('submit').addEventListener('click', function () {
+    geocodeAddress(geocoder, map);
+  });
 
-  function geocodeAddress(geocoder, resultsMap) {
-    console.log(geocoder);
-    var address = document.getElementById('address').value;
-   
-    geocoder.geocode({ 'address': address }, function (results, status) {
 
-      if (status === 'OK') {
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
-        });
-        console.log(marker.position.lat());
-        console.log(marker.position.lng());
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
 
-  function gl() {
+}
 
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
-    var map, infoWindow;
+function geocodeAddress(geocoder, resultsMap) {
+  console.log(geocoder);
+  var address = document.getElementById('address').value;
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: -34.397, lng: 150.644 },
-      zoom: 6
-    });
-    infoWindow = new google.maps.InfoWindow;
+  geocoder.geocode({ 'address': address }, function (results, status) {
 
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
-        infoWindow.open(map);
-        map.setCenter(pos);
-      }, function () {
-        handleLocationError(true, infoWindow, map.getCenter());
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
       });
+      console.log(marker.position.lat());
+      console.log(marker.position.lng());
     } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
+      alert('Geocode was not successful for the following reason: ' + status);
     }
+  });
+}
 
+function gl() {
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  // Note: This example requires that you consent to location sharing when
+  // prompted by your browser. If you see the error "The Geolocation service
+  // failed.", it means you probably did not give permission for the browser to
+  // locate you.
+  var map, infoWindow;
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 6
+  });
+  infoWindow = new google.maps.InfoWindow;
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
       infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
+      infoWindow.setContent('Location found.');
       infoWindow.open(map);
-    }
-
-
-
-    {
-
-
-
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-      infoWindow.open(map);
-
-
-    }
+      map.setCenter(pos);
+    }, function () {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
   }
 
-  function pullUser() {
-    database.ref().on("child_added", function (snapshot) {
-      var data = snapshot.val();
-      var newRow = $("<div class='row'>");
-      console.log(data);
-      var colName = "<div class='col'>" + data.user.first + " " + data.user.last + "</div> ";
-      var colemail = "<div class='col'>" + data.user.email + "</div> ";
-      var colphone = "<div class='col'>" + data.user.phone + "</div> ";
 
-      newRow.append(colName, colemail, colphone);
-      $("#user").append(newRow);
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  }
+
+
+
+  {
+
+
+
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+
+
+  }
+}
+
+function pullUser() {
+  database.ref().on("child_added", function (snapshot) {
+    var data = snapshot.val();
+    var newRow = $("<div class='row'>");
+    console.log(data);
+    var colName = "<div class='col'>" + data.user.first + " " + data.user.last + "</div> ";
+    var colemail = "<div class='col'>" + data.user.email + "</div> ";
+    var colphone = "<div class='col'>" + data.user.phone + "</div> ";
+
+    newRow.append(colName, colemail, colphone);
+    $("#user").append(newRow);
+
+  })
+}
+function pushUser() {
+  // Set data to Firebase
+  database.ref().push(
+    {
+      user: user,
+
 
     })
-  }
-  function pushUser() {
-    // Set data to Firebase
-    database.ref().push(
-      {
-        user: user,
 
-
-      })
-
-  }
+}
 
 
 
-  function pushMarker() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
+function pushMarker() {
+  var myLatLng = { lat: -25.363, lng: 131.044 };
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatLng
-    });
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: myLatLng
+  });
 
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!'
-    });
-  }
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
+}
+function sendUserInfo() {
+  //grab inputs from account info form
+  var first = $("#user-firstName").val().trim();
+  var last = $("#user-lastName").val().trim();
+  var email = $("#user-email").val().trim();
+  var phone = $("#user-phone").val().trim();
+  //send new user values to firebase
+  database.ref(user).set({
+    first: first,
+    last: last,
+    email: email,
+    phone: phone,
+  });
+  console.log(first);
+  console.log(last);
+  console.log(email);
+  console.log(phone);
+}
+//if user is a provider as well, then we need to grab and send more values to firebase
+function sendProviderInfo() {
+  var first = $("#provider-firstName").val().trim();
+  var last = $("#provider-lastName").val().trim();
+  var email = $("#provider-email").val().trim();
+  var phone = $("#provider-phone").val().trim();
+  var providerAddress = $("#provider-address").val().trim();
+  var chargerType = $("#provider-type").val().trim();//type of charger
 
+  //send provider info to firebase
+  database.ref(user).set({
+    first: first,
+    last: last,
+    email: email,
+    phone: phone
+  });
+  //send charger info to firebase
+  database.ref(charger).set({
+    type: chargerType
+  });
 
-});
+  //send provider address to firebase
+  database.ref(provider).set({
+    address: providerAddress
+  });
+}
+
+//append provider info on dash in cards
+function appendProviderInfo() {
+  //grab info from firebase
+  database.ref(user).on("value", function (snapshot) {
+      var first = snapshot.val().first;
+      var last = snapshot.val().last;
+      var address = snapshot.val().address;
+      var phone = snapshot.val().phone;
+      var pic = snapshot.val().pic;
+
+  });
+
+  console.log("First name: " + first);
+  console.log("Last name: " + last);
+  console.log("Address: " + address);
+  console.log("Phone number: " + phone);
+
+  database.ref(charger).on("value", function (snapshot) {
+    var type = snapshot.val().type;
+  });
+  //log charger type
+  console.log("Charger type: " + type);
+
+  //append info to provider cards
+  $("#card-pic").append(pic);
+  $("#card-name").text(first + " " + last);
+  $("#card-phone").text(phone);
+  $("#card-address").text(address);
+  $("#card-type").text(type);
+};
+
