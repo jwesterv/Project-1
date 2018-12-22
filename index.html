@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="./assets/css/reset.css">
 
     <!-- Firebase -->
-<!-- Firebase App is always required and must be first -->
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
 
-<!-- Add additional services that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-functions.js"></script>
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-functions.js"></script>
 
     <!-- Main Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -27,25 +27,77 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 
     <!-- Main CSS Link -->
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="Project-1.css">
 
     <!-- JQuery Links -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 
-    <!--Link to integrate Google Sign-in-->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!--Firebase UI CDN-->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.0/firebaseui.css" />
 
     <title>WattsApp</title>
 </head>
 
 <Body>
-    <div id="map"></div>
-    <div id="floating-panel">
-        <input id="address" type="textbox" value="Sydney, NSW">
-        <input id="submit" class="btn btn-submit" type="button" value="Geocode">
-      </div>
-    
+    <div class="bg">
+        <div class="main-page full screen">
+
+            <row>
+                <h1 class="mainTitle">
+                    Watts App
+                </h1>
+            </row>
+
+            <row class="logInModal">
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Log In
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="login-clean">
+                                    <form method="post">
+                                        <h2 class="sr-only">Login Form</h2>
+                                        <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+                                        <div class="g-signin2" data-onsuccess="onSignIn"><button>Google</button></div>
+                                        <div class="form-group"><input class="form-control" type="email" name="email"
+                                                placeholder="Email" /></div>
+                                        <div class="form-group"><input class="form-control" type="password" name="password"
+                                                placeholder="Password" /></div>
+                                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log
+                                                In</button></div><a href="#" class="forgot">Forgot your email or
+                                            password?</a>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Create Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </row>
+        </div>
+    </div>
+
+
 
 
     <!--Div for a google sign-in-->
@@ -56,10 +108,17 @@
 
 
     <!-- All the good stuff! -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.0/firebaseui.js"></script>
+    <script type="text/javascript" src="./assets/javascript/login.js"></script>
     <script type="text/javascript" src="./assets/javascript/app.js"></script>
     <!-- Google Maps API -->
+<<<<<<< HEAD
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMc3DmC8wRvYXnd8rbkA7Vwa2P_GflEsE"async defer></script>
     
+=======
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMc3DmC8wRvYXnd8rbkA7Vwa2P_GflEsE" async defer></script>
+
+>>>>>>> ae9f3b981ff7da59d08fbc6b1b2be3765735eb5a
     <!-- Required popper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
