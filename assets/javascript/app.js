@@ -7,23 +7,24 @@ var database;
 var user = {
   userId: 0,
   isProvider: false,
-  first: "John", // google first name
+  first: "Watts", // google first name
   middle: "", // google middle name
-  last: "Doe", // google last name
-  email: "jdoe@me.com", // google email
-  phone: "800-555-1212",
-  region: "New York", // google region
+  last: "App", // google last name
+  email: "WattsApp123@gmail.com", // google email
+  phone: "111-222-3333",
+  region: "Los Angeles", // google region
   pic: "assets/images/pic.png", // google profile picture
   width: 100, // picture width
   height: 100, // picture height
   make: "Tesla", //make of the user's car
   hasCable: "no", // if user has a cable
+  address: "510 E Petalson Drive",
   provider: { //main provider object 
     station: { //main station object
       marker: { //google marker for the station
-        region: "New York", // region of the station
-        lat: 40.785091, //latitude of the station
-        lng: -73.968285 // longitude of the station
+        region: "Los Angeles", // region of the station
+        lat: 33.68, //latitude of the station
+        lng: -117.83 // longitude of the station
       },
       hasCable: "no", //does station have a cable
       isOpen: false, //is the station open for business
@@ -31,7 +32,7 @@ var user = {
       services: false, //other available services at the station
       totalSockets: 0, //total available sockets at the station
       charger: { //charger on the station
-        type: "",
+        type: "SuperCharger",
         numSockets: 1, //number of sockets on the charger
         inUse: false //is the charger in use
       }
@@ -65,15 +66,13 @@ $(document).ready(function () {
     pullUser();
   });
 
-  $("#update-user").on("click", function () {
+  $("#update-user").on("click", function (snapshot) {
     sendUserInfo();
   });
 
-  $("#update-provider").on("click", function() {
-    sendProviderInfo();
+  $("#update-provider").on("click", function(snapshot) {
+    sendUserInfo();
   });
-
-  console.log(database.ref());
 
 });
 //Functions
@@ -315,10 +314,10 @@ function appendProviderInfo() {
   console.log("Charger type: " + type);
 
   //append info to provider cards
-  $("#card-pic").append(pic);
-  $("#card-name").text(first + " " + last);
-  $("#card-phone").text(phone);
-  $("#card-address").text(address);
-  $("#card-type").text(type);
+  $("#card-info").append(user.pic);
+  $("#card-name").text(user.first + " " + user.last);
+  $("#card-phone").text(user.phone);
+  $("#card-address").text(user.address);
+  $("#card-type").text(user.provider.station.charger.type);
 };
 
