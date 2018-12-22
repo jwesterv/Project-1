@@ -2,8 +2,7 @@
 
 //========================
 var database;
-var providerLat;
-var providerLong;
+
 
 var user = {
   userId: 0,
@@ -23,8 +22,8 @@ var user = {
     station: { //main station object
       marker: { //google marker for the station
         region: "New York", // region of the station
-        lat: "40.785091", //latitude of the station
-        lng: "-73.968285" // longitude of the station
+        lat: 40.785091, //latitude of the station
+        lng: -73.968285 // longitude of the station
       },
       hasCable: "no", //does station have a cable
       isOpen: false, //is the station open for business
@@ -39,7 +38,6 @@ var user = {
   }
 
 };
-console.log(user.provider.station.charger.numSockets);
 
 
 
@@ -50,8 +48,10 @@ console.log(user.provider.station.charger.numSockets);
 
 $(document).ready(function () {
   initDb();
-  // gl();
-  providerMap(40.785091, -73.968285);
+  gl();
+  $("#providerLoc").on("click", function(){
+    providerMap();
+  });
 
   $("#pushUser").on("click", function(){
     $("#user").empty();
@@ -89,19 +89,28 @@ $(document).ready(function () {
 
 
   function providerMap(providerLat, providerLong) {
+     // 40.785091, -73.968285));
+providerLat = user.provider.station.marker.lat;
+providerLong = user.provider.station.marker.lng;
 
-    var providerLoc = { lat: providerLat, lng: providerLong };
-    var providerMap = new google.maps.Map(document.getElementById('map'), {
+console.log(providerLat);
+console.log(providerLong);
+    // var providerLoc = { lat: providerLat, lng: providerLong };
+//  { lat: providerLat, lng: providerLong }
+    var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
-      center: providerLoc
+      center: { lat: providerLat, lng: providerLong },
+  
     });
+    console.log(providerLat);
+    console.log(providerLong);
     var geocoder = new google.maps.Geocoder();
     console.log(geocoder);
 
 
 
     document.getElementById('submit').addEventListener('click', function () {
-      geocodeAddress(geocoder, providerMap);
+      geocodeAddress(geocoder, map);
     });
 
 
@@ -136,7 +145,7 @@ $(document).ready(function () {
     // locate you.
     var map, infoWindow;
 
-    map = new google.maps.Map(document.getElementById('map2'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: -34.397, lng: 150.644 },
       zoom: 6
     });
