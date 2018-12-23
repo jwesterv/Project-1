@@ -21,6 +21,7 @@ var uiConfig = {
         var isNewUser = authResult.additionalUserInfo.isNewUser;
         var providerId = authResult.additionalUserInfo.providerId;
         var operationType = authResult.operationType;
+        console.log("user id: " + firebase.auth().currentUser.uid)
         // Do something with the returned AuthResult.
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
@@ -67,3 +68,4 @@ var uiConfig = {
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
   // The start method will wait until the DOM is loaded.
   ui.start('#firebaseui-auth-container', uiConfig);
+  
