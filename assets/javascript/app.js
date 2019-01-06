@@ -23,8 +23,8 @@ var user = {
     station: { //main station object
       marker: { //google marker for the station
         region: "Los Angeles", // region of the station
-        lat: 33.68, //latitude of the station
-        lng: -117.83 // longitude of the station
+        lat: 40.785091, //latitude of the station
+        lng: -73.968285 // longitude of the station
       },
       hasCable: "no", //does station have a cable
       isOpen: false, //is the station open for business
@@ -41,29 +41,27 @@ var user = {
 
 };
 
-
-
-
-
 //Main
 //====================
 
 $(document).ready(function () {
   initDb();
-  gl();
   appendProviderInfo();
-  $("#providerLoc").on("click", function () {
-    providerMap();
-  });
+  providerMap();
+  pullUser();
+
+  
+
 
   $("#pushUser").on("click", function () {
     $("#user").empty();
     pushUser();
+    
   });
 
-  $("#pullUser").on("click", function () {
-    $("#user").empty();
-    pullUser();
+  $("#locate").on("click", function () {
+    
+    gl();
   });
 
   $("#update-user").on("click", function (snapshot) {
@@ -75,6 +73,7 @@ $(document).ready(function () {
   });
 
 });
+
 //Functions
 //==================
 
@@ -100,11 +99,10 @@ function providerMap(providerLat, providerLong) {
 
   console.log(providerLat);
   console.log(providerLong);
-  // var providerLoc = { lat: providerLat, lng: providerLong };
-  //  { lat: providerLat, lng: providerLong }
+  var providerLoc = { lat: providerLat, lng: providerLong };
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
-    center: { lat: providerLat, lng: providerLong },
+    center: providerLoc
 
   });
   console.log(providerLat);
@@ -112,13 +110,9 @@ function providerMap(providerLat, providerLong) {
   var geocoder = new google.maps.Geocoder();
   console.log(geocoder);
 
-
-
   document.getElementById('submit').addEventListener('click', function () {
     geocodeAddress(geocoder, map);
   });
-
-
 
 }
 
@@ -176,7 +170,6 @@ function gl() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
@@ -184,13 +177,9 @@ function gl() {
       'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
   }
-
-
 
   {
 
-
-
   }
 
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -199,7 +188,6 @@ function gl() {
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
-
 
   }
 }
@@ -207,29 +195,33 @@ function gl() {
 function pullUser() {
   database.ref().on("child_added", function (snapshot) {
     var data = snapshot.val();
-    var newRow = $("<div class='row'>");
+    var newCol = $("<div class='col'>");
     console.log(data);
-    var colName = "<div class='col'>" + data.user.first + " " + data.user.last + "</div> ";
-    var colemail = "<div class='col'>" + data.user.email + "</div> ";
-    var colphone = "<div class='col'>" + data.user.phone + "</div> ";
+    var rowName = "<div class='row'>" + data.user.first + " " + data.user.last + "</div> ";
+    
+    var rowEmail = "<div class='row'>" + data.user.email + "</div> ";
+    
+    var rowPhone = "<div class='row'>" + data.user.phone + "</div> ";
 
-    newRow.append(colName, colemail, colphone);
-    $("#user").append(newRow);
+    var rowAddress = "<div class='row'>" + data.user.address + "</div> ";
+
+    var rowCharger = "<div class='row'>" + data.user.provider.station.charger.type + "</div> ";
+
+    newCol.append(rowName, rowEmail, rowPhone, rowAddress, rowCharger);
+    $("#user").append(newCol);
 
   })
 }
 function pushUser() {
   // Set data to Firebase
+  
   database.ref().push(
     {
       user: user,
-
-
+      
     })
 
 }
-
-
 
 function pushMarker() {
   var myLatLng = { lat: -25.363, lng: 131.044 };
@@ -242,7 +234,7 @@ function pushMarker() {
   var marker = new google.maps.Marker({
     position: myLatLng,
     map: map,
-    title: 'Hello World!'
+    title: 'map'
   });
 }
 function sendUserInfo() {
@@ -251,6 +243,7 @@ function sendUserInfo() {
   var last = $("#user-lastName").val().trim();
   var email = $("#user-email").val().trim();
   var phone = $("#user-phone").val().trim();
+  
   //send new user values to firebase
   database.ref(user).set({
     first: first,
@@ -292,32 +285,37 @@ function sendProviderInfo() {
 
 //append provider info on dash in cards
 function appendProviderInfo() {
+  database.ref().on("value", function (snapshot) {
+    // console.log(snapshot.val());
+    key = snapshot.key;
+    console.log(key);
+    
   //grab info from firebase
-  database.ref(user).on("value", function (snapshot) {
-      var first = snapshot.val().first;
-      var last = snapshot.val().last;
-      var address = snapshot.val().address;
-      var phone = snapshot.val().phone;
-      var pic = snapshot.val().pic;
+  // database.ref(user).on("value", function (snapshot) {
+  //     var first = snapshot.val().first;
+  //     var last = snapshot.val().last;
+  //     var address = snapshot.val().address;
+  //     var phone = snapshot.val().phone;
+  //     var pic = snapshot.val().pic;
 
-  });
+  // });
+  })
+  // console.log("First name: " + first);
+  // console.log("Last name: " + last);
+  // console.log("Address: " + address);
+  // console.log("Phone number: " + phone);
 
-  console.log("First name: " + first);
-  console.log("Last name: " + last);
-  console.log("Address: " + address);
-  console.log("Phone number: " + phone);
+  // database.ref(charger).on("value", function (snapshot) {
+  //   var type = snapshot.val().type;
+  // });
+  // //log charger type
+  // console.log("Charger type: " + type);
 
-  database.ref(charger).on("value", function (snapshot) {
-    var type = snapshot.val().type;
-  });
-  //log charger type
-  console.log("Charger type: " + type);
-
-  //append info to provider cards
-  $("#card-info").append(user.pic);
-  $("#card-name").text(user.first + " " + user.last);
-  $("#card-phone").text(user.phone);
-  $("#card-address").text(user.address);
-  $("#card-type").text(user.provider.station.charger.type);
+  // //append info to provider cards
+  // $("#card-info").append(user.pic);
+  // $("#card-name").text(user.first + " " + user.last);
+  // $("#card-phone").text(user.phone);
+  // $("#card-address").text(user.address);
+  // $("#card-type").text(user.provider.station.charger.type);
 };
 
