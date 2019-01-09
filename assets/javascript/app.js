@@ -287,8 +287,8 @@ function sendProviderInfo() {
 function appendProviderInfo() {
   database.ref().on("value", function (snapshot) {
     // console.log(snapshot.val());
-    key = snapshot.key;
-    console.log(key);
+    // key = snapshot.key;
+    // console.log(key);
     
   //grab info from firebase
   // database.ref(user).on("value", function (snapshot) {
